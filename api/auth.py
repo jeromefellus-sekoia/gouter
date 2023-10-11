@@ -1,3 +1,4 @@
+from inspect import iscoroutinefunction
 import jwt
 from fastapi import HTTPException
 from fastapi import Request, Depends
@@ -14,13 +15,12 @@ class Session(BaseModel):
 
 
 def session(request: Request) -> Session | None:
-    if os.getenv("ENV") != "prod":
-        return Session(email="someone@sekoia.io", username="someone")
+    return parse_session_cookie(request.cookies["session"])
 
+
+def parse_session_cookie(cookie):
     try:
-        return Session.parse_obj(
-            jwt.decode(request.cookies["session"], SECRETS["SECRET_KEY"], ["HS256"])
-        )
+        return Session.parse_obj(jwt.decode(cookie, SECRETS["SECRET_KEY"], ["HS256"]))
     except Exception:
         return None
 
@@ -32,8 +32,7 @@ def login_from_google(token: str):
         os.environ["GOOGLE_CLIENT_ID"],
     )
 
-    if x["hd"] not in ["sekoia.fr", "sekoia.io"]:
-        raise PermissionError("Wrong domain")
+    print(x)
 
     return (
         jwt.encode(
@@ -46,9 +45,21 @@ def login_from_google(token: str):
 
 
 def authenticated(f):
-    def wrapped(*args, __session: Session | None = Depends(session), **kw):
-        if not __session:
-            raise HTTPException(401, "Unauthenticated")
-        return f(*args, **kw)
+    if not iscoroutinefunction(f):
 
-    return adapt_signature(wrapped, f)
+        def wrapped(*args, __session: Session | None = Depends(session), **kw):
+            if not __session:
+                raise HTTPException(401, "Unauthenticated")
+            return f(*args, **kw)
+
+        return adapt_signature(wrapped, f)
+    else:
+
+        async def async_wrapped(
+            *args, __session: Session | None = Depends(session), **kw
+        ):
+            if not __session:
+                raise HTTPException(401, "Unauthenticated")
+            return await f(*args, **kw)
+
+        return adapt_signature(async_wrapped, f)

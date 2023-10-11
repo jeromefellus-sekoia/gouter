@@ -10,25 +10,21 @@ def read_secrets():
     try:
         with open(SECRETS_PATH) as f:
             return {
-                y[0].strip(): y[1].strip("\"' \t")
+                x.strip().split("=", 1)[0]: x.strip().split("=", 1)[1].strip("\"' \t")
                 for x in f.readlines()
-                for y in x.split("=", 1)
+                if "=" in x
             }
     except Exception:
         return {}
 
 
-def write_secrets():
-    with open(SECRETS_PATH, "w") as f:
-        f.writelines(f'{k}="{v}"' for k, v in SECRETS.items())
-
-
 SECRETS = {
-    "SECRET_KEY": token_hex(24),
+    "SECRET_KEY": token_hex(32),
     **read_secrets(),
 }
 
-write_secrets()
+with open(SECRETS_PATH, "w") as f:
+    f.writelines([f'{k}="{v}"' for k, v in SECRETS.items()])
 
 
 def adapt_signature(wrapped, f):

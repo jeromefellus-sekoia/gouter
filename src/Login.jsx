@@ -15,7 +15,7 @@ export const Login = {
 
         return () => {
             return <div id="google-sso">
-                <div id="g_id_onload" data-client_id="50234913226-lh7vje4l45t4ifu5jv9ujetlojlfqq87.apps.googleusercontent.com"
+                <div id="g_id_onload" data-client_id="4862407941-gli3asais585k29vjbnlvnh45sanjvme.apps.googleusercontent.com"
                     data-callback="google_login" data-auto_prompt="false" data-ux_mode="popup">
                 </div>
                 <div class="g_id_signin" data-type="standard" data-size="large" data-theme="outline" data-text="sign_in_with"

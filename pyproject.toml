@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "gentilmechant"
+name = "gouter"
 version = "0.0.0"
 description = "Count and fight discrimination at work"
 authors = []

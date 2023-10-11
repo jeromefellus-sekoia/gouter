@@ -1,10 +1,12 @@
 import "./styles/common.scss"
 import "./styles/index.scss"
 import { reactive } from "vue"
-import { useRouter } from "vue-router"
 import { ContextMenu } from "./Dropdown"
 
-export const UI = reactive({})
+export const UI = reactive({
+    draw:{},
+    positions:{},
+})
 
 
 export const App = {
@@ -18,7 +20,7 @@ export const App = {
         })
 
         return () => {
-            if (!document.cookie.includes("session=") && !useRouter().currentRoute?.value.path?.includes("login")) useRouter().replace("/login")
+            if (!document.cookie.includes("session=") && !location.pathname?.endsWith("login")) location.replace("/login")
             return <>
                 <router-view />
                 <ContextMenu />

@@ -203,4 +203,34 @@ a:hover {
   position:fixed;
   right:10px;
   top:10px;
+  z-index: 10;
+}
+
+main {
+  position: fixed;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  background:red;
+}
+
+svg {
+  position: fixed;
+  width:100%;
+  height:100%;
+  background:white;
+  pointer-events: none;
+}
+
+#users {
+  pointer-events: none;
+  background: black;
+  color:white;
+  border-radius: 15px;
+  padding: 20px;
+  position: fixed;
+  top:100px;
+  right:10px;
+  z-index:10;
 }

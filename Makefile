@@ -1,5 +1,5 @@
 -include secrets.mk
-PROJECT_DIR:=/app/gentilmechant
+PROJECT_DIR:=/app/gouter
 
 deploy:
 	yarn build
@@ -17,10 +17,10 @@ start:
 	ssh $(USER)@$(HOST) 'cd $(PROJECT_DIR) && docker compose start'
 
 shell:
-	ssh $(USER)@$(HOST) 'cd $(PROJECT_DIR) && docker compose exec -it gentilmechant sh'
+	ssh $(USER)@$(HOST) 'cd $(PROJECT_DIR) && docker compose exec -it gouter sh'
 
 logs:
-	ssh $(USER)@$(HOST) 'cd $(PROJECT_DIR) && docker compose logs -f gentilmechant'
+	ssh $(USER)@$(HOST) 'cd $(PROJECT_DIR) && docker compose logs -f gouter'
 
 ssh:
 	ssh $(USER)@$(HOST)
