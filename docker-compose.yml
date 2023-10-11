@@ -1,0 +1,20 @@
+version: "3.9"
+services:
+
+  gentilmechant:
+    build: /app/gentilmechant
+    working_dir: /app
+    volumes:
+      - /data/gentilmechant:/data:rw
+      - /app/gentilmechant:/app:ro
+    environment:
+      - ENV=prod
+      - SECRETS_PATH=/data/secrets
+      - GOOGLE_CLIENT_ID=50234913226-lh7vje4l45t4ifu5jv9ujetlojlfqq87.apps.googleusercontent.com
+    networks:
+      - main
+
+networks:
+  main:
+    name: main
+    external: true

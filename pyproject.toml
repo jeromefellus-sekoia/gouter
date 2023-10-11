@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "gentilmechant"
+version = "0.0.0"
+description = "Count and fight discrimination at work"
+authors = []
+
+[tool.poetry.dependencies]
+python = ">=3.11,<3.12"
+fastapi = "^0.93.0"
+Jinja2 = "^3.1.2"
+uvicorn = {extras = ["standard"], version = "^0.18.3"}
+pydantic = "^1.10.4"
+structlog = "^22.3.0"
+pyjwt = {extras = ["crypto"], version = "^2.6.0"}
+requests = "^2.28.2"
+python-multipart = "^0.0.5"
+httpx = "^0.23.3"
+google-auth = "^2.16.2"
+pytest = "^7.2.2"
+websockets = "^11.0.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+pythonpath = "."

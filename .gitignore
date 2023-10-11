@@ -1,0 +1,12 @@
+/node_modules
+/.mypy_cache
+/dist
+/data
+/.env
+__cache__
+__pycache__
+build.tar
+pki/
+secrets.mk
+data.db
+secrets
